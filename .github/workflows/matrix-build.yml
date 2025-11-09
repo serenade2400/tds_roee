@@ -2,18 +2,22 @@ name: Matrix Build CI
 on: [push]
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        node-version: [14, 16, 18]
     steps:
     - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
     - name: matrix-9faccda
-      run: echo "Building on ${{ matrix.os }}"
+      run: echo "Building with Node.js ${{ matrix.node-version }}"
     - name: Generate artifact
-      run: echo "This is the build artifact for ${{ matrix.os }}." > output.txt
+      run: echo "This is the build artifact for Node.js ${{ matrix.node-version }}." > output.txt
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
-        name: build-9faccda-${{ matrix.os }}
+        name: build-9faccda-node-${{ matrix.node-version }}
         path: output.txt
