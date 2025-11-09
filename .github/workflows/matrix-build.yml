@@ -13,7 +13,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - name: matrix-9faccda
-      run: echo "Building with Node.js ${{ matrix.node-version }}"
+      id: matrix-9faccda
+      run: echo "Building with Node.js ${{ matrix.node-version }} - matrix-9faccda"
     - name: Generate artifact
       run: echo "This is the build artifact for Node.js ${{ matrix.node-version }}." > output.txt
     - name: Upload artifact
